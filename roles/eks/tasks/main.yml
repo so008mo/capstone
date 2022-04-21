@@ -131,4 +131,4 @@
 
 - name: Install HPA
   shell: "kubectl autoscale deployment petclinic-spring --cpu-percent=50 --min=2 --max=10"
-ignore_errors: true
+  ignore_errors: yes
