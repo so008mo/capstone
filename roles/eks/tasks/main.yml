@@ -98,15 +98,6 @@
 - name: Output OIDC Provider Info
   debug:
     msg: "oidc info: {{ oidc_issuer_provider_arn }}, oidc host path: {{ oidc_issuer_provider_host_path }} "
-
-- name: Install aws-iam-authenticator
-  shell: "curl -o aws-iam-authenticator https://amazon-eks.s3.us-west-2.amazonaws.com/1.15.10/2020-02-22/bin/linux/amd64/aws-iam-authenticator"
-
-- name: test
-  shell: "chmod +x ./aws-iam-authenticator"
-
-- name: move
-  shell: "mv ./aws-iam-authenticator /usr/local/bin"
     
 - name: Configure CLuster autoScaler
   template:
