@@ -71,7 +71,7 @@
   command: "eksctl {{ eksctl_action }} cluster -f /tmp/eks-cluster.yaml"
   
 - name: Add Kubectl configuration
-  shell: "aws eks update-kubeconfig --name {{ eksClusterName }} --region {{ region }}"
+  shell: "aws eks update-kubeconfig --name {{ eksClusterName }} --region {{ region }} --alias {{ eksClusterName }}"
   ignore_errors: yes
   
 - name: Get OIDC Info - Issuer URL
@@ -103,6 +103,9 @@
   template:
     src: "roles/{{ role_name }}/templates/cluster-autoscaler.yaml"
     dest: /tmp/cluster-autoscaler.yaml
+
+- name: Configure context
+  shell: "kubectl config use-context {{ eksClusterName }}"
 
 - name: Install Cluster autoscaler for capacity
   shell: "kubectl apply -f /tmp/cluster-autoscaler.yaml"
