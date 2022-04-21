@@ -129,5 +129,5 @@
 - debug:
     msg: "{{ PETCLINIC_URL.stdout }}"
 
-- name: Patch Deployment
-  shell: "kubectl patch deployment petclinic-spring -p='{\"spec\":{\"template\":{\"spec\":{\"containers\":[{\"name\":\"spring\",\"resources\":{\"requests\":{\"cpu\":\"100m\"}}}]}}}}'"
+# - name: Patch Deployment
+#   shell: "kubectl patch deployment petclinic-spring -p='{\"spec\":{\"template\":{\"spec\":{\"containers\":[{\"name\":\"spring\",\"resources\":{\"requests\":{\"cpu\":\"200m\"}}}]}}}}'"
