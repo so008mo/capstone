@@ -45,7 +45,28 @@ nodeGroups:
     evictionHard:
       memory.available:  "200Mi"
       nodefs.available: "10%"
-  tags:
-    media-wiki-cluster-autoscaler-enabled: "true"
-    CrowdStrike_Exception: "EKS"
-    Capstone_project: "True"  
+
+- name: "{{ eksClusterName }}-ng-az2"
+  instanceType: t2.medium
+  availabilityZones: ["{{ b_stack_az }}"]
+  desiredCapacity: 1
+  minSize: 1
+  maxSize: 4
+  privateNetworking: true
+  labels:
+    nodegroup-type: petclinic
+  ssh:
+    publicKeyName: petclinic
+  iam:
+    withAddonPolicies:
+      externalDNS: true
+      autoScaler: true
+      efs: true
+      ebs: true
+      cloudWatch: true
+      certManager: true
+      albIngress: true
+  kubeletExtraConfig:
+    evictionHard:
+      memory.available:  "200Mi"
+      nodefs.available: "10%" 
