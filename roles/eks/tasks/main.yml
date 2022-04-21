@@ -4,12 +4,15 @@
     stack_name: petclinic-vpc
     state: present
     region: "{{ region }}"
-    PublicSubnet1AZ: "{{ region }}-1a"
-    PublicSubnet2AZ: "{{ region }}-1b"
-    PrivateSubnet1AZ: "{{ region }}-1a"
-    PrivateSubnet2AZ: "{{ region }}-1b"
     template: "roles/{{ role_name }}/files/eks-vpc.yaml"
+    template_parameters:
+      PublicSubnet1AZ: "{{ region }}a"
+      PublicSubnet2AZ: "{{ region }}b"
+      PrivateSubnet1AZ: "{{ region }}a"
+      PrivateSubnet2AZ: "{{ region }}b"
+  ignore_errors: true
   register: vpc_stack
+
   
 - name: Get VPC Info
   cloudformation_info:
@@ -35,8 +38,8 @@
   set_fact:
     eksClusterName: petclinic-eks
     region: "{{ region }}"
-    a_stack_az: "{{ region }}-1a"
-    b_stack_az: "{{ region }}-1b"
+    a_stack_az: "{{ region }}a"
+    b_stack_az: "{{ region }}b"
     a_stack_pub_subnet: "{{ vpc_info.PublicSubnet1Id }}"
     b_stack_pub_subnet: "{{ vpc_info.PublicSubnet2Id }}"
     a_stack_priv_subnet: "{{ vpc_info.PrivateSubnet1Id }}"
@@ -104,6 +107,9 @@
 - name: Install Cluster autoscaler for capacity
   shell: "kubectl apply -f /tmp/cluster-autoscaler.yaml"
 
+- name: Install metrics-server
+  shell: "kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml"
+
 - name: Add petclinic helm chart
   shell: "helm repo add so008mo http://tech.paulcz.net/helm-chart-spring/repo"
 
@@ -119,3 +125,9 @@
 
 - debug:
     msg: "{{ PETCLINIC_URL.stdout }}"
+
+# - name: Patch Deployment
+#   shell: "kubectl patch deployment petclinic-spring -p='{"spec":{"template":{"spec":{"containers":[{"name":"spring","resources":{"requests":{"cpu":"100m"}}}]}}}}'"
+
+- name: Install HPA
+  shell: "kubectl autoscale deployment petclinic-spring --cpu-percent=50 --min=2 --max=10"

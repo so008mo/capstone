@@ -1,6 +1,6 @@
-# equalexpertsspringpetclinic
+# springpetcliniccapstone
 
-This Project is to build a pipeline to deploy the media wiki helm chart to AWS EKS in us-east-1 region.
+This Project is to build a pipeline to deploy the petclinic helm chart to AWS EKS in us-east-1 region.
 
 Prerequisites to run the code
 
@@ -27,6 +27,12 @@ Components that will be deployed
 2. EKS Cluster and one EKS Nodegroup of t2.medium instance type
 
 3. Cluster Autoscaler to handle any capacity requests
+
+4. Metric Server
+
+5. Horizontal Pod AutoScaler for petclinic deployment
+
+6. Petclinic application
 
 
 Additional comments.

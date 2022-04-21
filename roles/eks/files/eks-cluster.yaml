@@ -4,7 +4,7 @@ kind: ClusterConfig
 metadata:
   name: "{{ eksClusterName }}"
   region: "{{ region }}"
-  version: "1.16"
+  version: "1.20"
 
 vpc:
   id: "{{ vpc_id }}"
@@ -47,4 +47,5 @@ nodeGroups:
       nodefs.available: "10%"
   tags:
     media-wiki-cluster-autoscaler-enabled: "true"
-    CrowdStrike_Exception: "EKS"  
+    CrowdStrike_Exception: "EKS"
+    Capstone_project: "True"  
