@@ -69,4 +69,4 @@ nodeGroups:
   kubeletExtraConfig:
     evictionHard:
       memory.available:  "200Mi"
-      nodefs.available: "10%" 
+      nodefs.available: "10%"
