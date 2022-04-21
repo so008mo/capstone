@@ -129,5 +129,5 @@
 # - name: Patch Deployment
 #   shell: "kubectl patch deployment petclinic-spring -p='{"spec":{"template":{"spec":{"containers":[{"name":"spring","resources":{"requests":{"cpu":"100m"}}}]}}}}'"
 
-- name: Install HPA
-  shell: "kubectl autoscale deployment petclinic-spring --cpu-percent=50 --min=2 --max=10"
+# - name: Install HPA
+#   shell: "kubectl autoscale deployment petclinic-spring --cpu-percent=50 --min=2 --max=10"
