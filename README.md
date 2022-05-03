@@ -1,4 +1,4 @@
-# springpetcliniccapstone
+# springcapstone
 
 This Project is to build a pipeline to deploy the petclinic helm chart to AWS EKS in us-east-1 region.
 
